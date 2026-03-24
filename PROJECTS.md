@@ -47,31 +47,31 @@ Inventory manager — not yet built
 
 2. SOUNDSTAGE AI
 
-Repo: github.com/MintedxMorphy/[CONFIRM REPO NAME]
-Live URL: [CONFIRM]
-Stack: [CONFIRM]
+Repo: github.com/MintedxMorphy/soundstage-ai (Private)
+Stack: TypeScript (check repo for full stack)
 What it is: App for audiophiles and hi-fi enthusiasts. Gives bespoke equipment recommendations and room/space improvements for optimal listening experience.
-Last known status: Built to Play Store version. DO NOT assume current state — read the repo and CONTEXT.md before touching anything.
+Last known status: Built to Play Store version. DO NOT assume current state — read CONTEXT.md in repo before touching anything.
 
 CRITICAL WARNINGS:
 
-Gregory is worried about session amnesia destroying recent work
 Always check git log before making any changes
 Confirm what's working before touching anything
+Gregory is concerned about session amnesia destroying recent work
 
 
 3. CLAWWORK
 
-Repo: github.com/MintedxMorphy/[CONFIRM REPO NAME]
-Live URL: [CONFIRM]
-Stack: [CONFIRM]
+Repo 1: github.com/MintedxMorphy/clawwork-agent-sdk (Public) — Agent SDK, autonomous job posting and bidding on Ethereum
+Repo 2: github.com/MintedxMorphy/clawwork-board (Private) — Job board UI
+Stack: JavaScript/TypeScript, Ethereum smart contracts
 What it is: Agent-to-agent job marketplace with smart contracts. Takes a percentage cut of all jobs passing through the platform.
-Last known status: [CONFIRM — read repo CONTEXT.md]
+Last known status: Check CONTEXT.md in each repo before touching anything.
 
 
 4. MISSION CONTROL
 
-Status: Still a disaster. Low priority. Do not touch unless explicitly asked.
+Repo: github.com/MintedxMorphy/mission-control (Private)
+Status: Still a work in progress. Low priority. Do not touch unless explicitly asked by Gregory.
 
 
 SESSION PROTOCOL — FOLLOW THIS EVERY TIME
