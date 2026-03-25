@@ -114,6 +114,9 @@ Never paste credentials or secrets into chat
 
 
 HOW TO USE THIS FILE
+
+Always fetch PROJECTS.md from the GitHub URL above. Never read a local copy of PROJECTS.md — it may be outdated
+
 Gregory will start sessions with:
 
 "Read PROJECTS.md and tell me what you know."
