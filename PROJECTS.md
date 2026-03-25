@@ -17,6 +17,7 @@ ACTIVE PROJECTS
 1. CARDTRACK
 
 Repo: github.com/MintedxMorphy/ebay-card-dashboard
+Local: ~/Projects/ebay-card-dashboard
 Live URL: https://ebay-card-dashboard.vercel.app
 Stack: Next.js, Supabase, Vercel, eBay Fulfillment API
 What it is: Pokémon + sports card trading dashboard for Gabriel (Gregory's son). Tracks eBay sales, P&L, buys/sells.
@@ -48,6 +49,7 @@ Inventory manager — not yet built
 2. SOUNDSTAGE AI
 
 Repo: github.com/MintedxMorphy/soundstage-ai (Private)
+Local: ~/Projects/soundstage-ai
 Stack: TypeScript (check repo for full stack)
 What it is: App for audiophiles and hi-fi enthusiasts. Gives bespoke equipment recommendations and room/space improvements for optimal listening experience.
 Last known status: Built to Play Store version. DO NOT assume current state — read CONTEXT.md in repo before touching anything.
@@ -62,7 +64,9 @@ Gregory is concerned about session amnesia destroying recent work
 3. CLAWWORK
 
 Repo 1: github.com/MintedxMorphy/clawwork-agent-sdk (Public) — Agent SDK, autonomous job posting and bidding on Ethereum
+Local 1: ~/Projects/clawwork-agent-sdk
 Repo 2: github.com/MintedxMorphy/clawwork-board (Private) — Job board UI
+Local 2: ~/Projects/clawwork-board
 Stack: JavaScript/TypeScript, Ethereum smart contracts
 What it is: Agent-to-agent job marketplace with smart contracts. Takes a percentage cut of all jobs passing through the platform.
 Last known status: Check CONTEXT.md in each repo before touching anything.
@@ -71,6 +75,7 @@ Last known status: Check CONTEXT.md in each repo before touching anything.
 4. MISSION CONTROL
 
 Repo: github.com/MintedxMorphy/mission-control (Private)
+Local: ~/Projects/mission-control
 Status: Still a work in progress. Low priority. Do not touch unless explicitly asked by Gregory.
 
 
@@ -103,6 +108,7 @@ Tell Gregory: "All pushed. Last commit: [hash]. Here's what's ready for next ses
 
 GLOBAL RULES — ALWAYS APPLY
 
+Always work from ~/Projects/ on Mac Studio. Never use /tmp/ or other temporary directories — /tmp/ is wiped on restart and causes data loss.
 Never drop databases or tables without explicit typed confirmation from Gregory
 Always push to GitHub at end of session
 Always confirm current state before making changes
