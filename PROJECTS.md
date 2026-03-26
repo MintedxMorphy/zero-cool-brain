@@ -58,19 +58,69 @@ Inventory manager — track cards in collection, organize by set/sport
 Wishlist + price alerts — watch cards, alert when prices drop
 Weekly recap screen — profit summary, best performers, trends
 
+
 2. SOUNDSTAGE AI
 
 Repo: github.com/MintedxMorphy/soundstage-ai (Private)
 Local: ~/Projects/soundstage-ai
-Stack: TypeScript (check repo for full stack)
+Stack: Expo (React Native, TypeScript, Expo Router), Supabase, Claude API, OpenAI API (fallback)
 What it is: App for audiophiles and hi-fi enthusiasts. Gives bespoke equipment recommendations and room/space improvements for optimal listening experience.
-Last known status: Built to Play Store version. DO NOT assume current state — read CONTEXT.md in repo before touching anything.
+Last commit: d295a6f — Revert to original SoundStageLOGO with proper padding (Mar 26, 2026)
+Current status: ✅ PLAY STORE READY. Icons finalized, EAS builds passing, production APK ready for submission.
+
+BUILDS & ARTIFACTS:
+
+Production Build (AAB for Play Store):
+- Build ID: 7a153cf7-60d1-40ed-ae50-c71d688452bf
+- AAB: https://expo.dev/artifacts/eas/g5noJ3noPRiMrsZt6H18hT.aab
+- Status: ✅ Ready for Google Play Store submission
+
+Preview Build (APK for device testing):
+- Build ID: 7e73a19f-d56d-44d1-964c-9cf25abf6635
+- Install: https://expo.dev/accounts/gmgremil/projects/soundstage-ai/builds/7e73a19f-d56d-44d1-964c-9cf25abf6635
+- Status: ✅ Ready to test on Samsung Galaxy Flip
+
+App Icons (Updated Mar 26):
+- icon.png: 1024x1024 (main app icon)
+- icon-512.png: 512x512 (Google Play Store requirement)
+- adaptive-icon.png: 1024x1024 (Android adaptive icon)
+- favicon.png: 192x192 (web favicon)
+- splash.png: 1280x2340 (portrait splash screen)
+- All icons: Original SoundStageLOGO with full "Ai sound Stage" text, no distortion
+
+EAS Configuration:
+- Project ID: 40bf1753-6b5e-4a0e-8f69-147a7889978b
+- eas.json: Configured for production store distribution
+- iOS bundle ID: com.gmgremil.soundstageai
+- Android package: com.gmgremil.soundstageai
 
 CRITICAL WARNINGS:
 
-Always check git log before making any changes
-Confirm what's working before touching anything
-Gregory is concerned about session amnesia destroying recent work
+Do NOT delete EAS Project ID from app.config.ts
+Do NOT change iOS/Android bundle identifiers without legal/certificate updates
+Do NOT modify the app.config.ts entry unless updating EAS credentials
+
+Status (as of March 26, 2026):
+
+✅ COMPLETED: Logo processing and icon generation
+✅ COMPLETED: EAS build configuration for production
+✅ COMPLETED: Production AAB build (ready for Play Store)
+✅ COMPLETED: Preview APK build (ready for device testing)
+✅ READY: Play Store submission (icons, AAB, credentials all set)
+
+Next Steps:
+
+Upload AAB to Google Play Console (internal testing track)
+Complete store listing (screenshots, description, privacy policy)
+Submit for review
+(After approval) Release to production
+
+Next Priorities (Features):
+
+Speaker Placement Calculator — Floor plan + optimal positioning (3-4 days)
+System Synergy Analysis — Impedance/power/character matching (2-3 days)
+Upgrade Recommendation Engine — Weakest link identification (3-4 days)
+Budget Optimization Tools — Allocation percentages + genre-specific (2-3 days)
 
 
 3. CLAWWORK
