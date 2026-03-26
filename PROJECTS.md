@@ -1,4 +1,4 @@
-ZERO COOL — MASTER CONTEXT FILE
+ZERO COOL — MASTER CONTEXT FILE 
 Owner: MintedxMorphy (Gregory)
 Last Updated: [UPDATE THIS AT END OF EVERY SESSION]
 Rule: READ THIS ENTIRE FILE before touching any code in any session.
