@@ -65,15 +65,17 @@ Repo: github.com/MintedxMorphy/soundstage-ai (Private)
 Local: ~/Projects/soundstage-ai
 Stack: Expo (React Native, TypeScript, Expo Router), Supabase, Claude API, OpenAI API (fallback)
 What it is: App for audiophiles and hi-fi enthusiasts. Gives bespoke equipment recommendations and room/space improvements for optimal listening experience.
-Last commit: d295a6f — Revert to original SoundStageLOGO with proper padding (Mar 26, 2026)
-Current status: ✅ PLAY STORE READY. Icons finalized, EAS builds passing, production APK ready for submission.
+Last commit: 02e493e — Set android versionCode to 2 explicitly (Mar 26, 2026)
+Current status: ✅ READY FOR PLAY STORE. Icons finalized, production AAB built, awaiting version code resolution for upload.
 
 BUILDS & ARTIFACTS:
 
-Production Build (AAB for Play Store):
-- Build ID: 7a153cf7-60d1-40ed-ae50-c71d688452bf
-- AAB: https://expo.dev/artifacts/eas/g5noJ3noPRiMrsZt6H18hT.aab
-- Status: ✅ Ready for Google Play Store submission
+Production Build (AAB for Play Store) — LATEST:
+- Build ID: 1891e40c-155b-4926-8a5a-9244f7e3eece
+- Version: 0.2.0
+- versionCode: 2 (explicitly set)
+- AAB: https://expo.dev/artifacts/eas/42YmFZiJv93w4ebjFjPRNE.aab
+- Status: ✅ Ready for Play Store submission (awaiting Play Store version code acceptance)
 
 Preview Build (APK for device testing):
 - Build ID: 7e73a19f-d56d-44d1-964c-9cf25abf6635
@@ -91,26 +93,35 @@ App Icons (Updated Mar 26):
 EAS Configuration:
 - Project ID: 40bf1753-6b5e-4a0e-8f69-147a7889978b
 - eas.json: Configured for production store distribution
-- iOS bundle ID: com.gmgremil.soundstageai
+- app.config.ts: versionCode: 2 set explicitly
+- iOS bundle ID: com.gmgremil.
+copy
+
+
+soundstageai
+copy
+
+
 - Android package: com.gmgremil.soundstageai
 
 CRITICAL WARNINGS:
 
 Do NOT delete EAS Project ID from app.config.ts
 Do NOT change iOS/Android bundle identifiers without legal/certificate updates
-Do NOT modify the app.config.ts entry unless updating EAS credentials
+Do NOT modify app.config.ts versionCode without testing new EAS build first
+Play Store may require versionCode incrementing — if upload fails with "version X already used", increment both version in app.config.ts AND versionCode
 
 Status (as of March 26, 2026):
 
-✅ COMPLETED: Logo processing and icon generation
+✅ COMPLETED: Logo processing and icon generation (original + proper padding)
 ✅ COMPLETED: EAS build configuration for production
-✅ COMPLETED: Production AAB build (ready for Play Store)
+✅ COMPLETED: Multiple production AAB builds (version code iterations)
 ✅ COMPLETED: Preview APK build (ready for device testing)
-✅ READY: Play Store submission (icons, AAB, credentials all set)
+✅ READY: Play Store submission — awaiting versionCode acceptance from Play Store (may require different versionCode on re-upload)
 
 Next Steps:
 
-Upload AAB to Google Play Console (internal testing track)
+Upload AAB to Google Play Console (resolve versionCode issue if needed)
 Complete store listing (screenshots, description, privacy policy)
 Submit for review
 (After approval) Release to production
