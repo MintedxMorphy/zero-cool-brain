@@ -16,13 +16,15 @@ Critical rule: NEVER drop or recreate database tables without explicit confirmat
 ACTIVE PROJECTS
 1. CARDTRACK
 
+1. CARDTRACK
+
 Repo: github.com/MintedxMorphy/ebay-card-dashboard
 Local: ~/Projects/ebay-card-dashboard
 Live URL: https://ebay-card-dashboard.vercel.app
-Stack: Next.js, Supabase, Vercel, eBay Fulfillment API
+Stack: Next.js, Supabase, Vercel, eBay Fulfillment API, eBay Browse API
 What it is: Pokémon + sports card trading dashboard for Gabriel (Gregory's son). Tracks eBay sales, P&L, buys/sells.
-Last commit: 575b10c — Add CONTEXT.md (Mar 26, 2026)
-Current status: ✅ PRODUCTION READY. eBay OAuth live, all 9 sales syncing, dates correct, P&L accurate, charts working.
+Last commit: 57a3bd1 — Fix Supabase initialization in delete route (Mar 26, 2026)
+Current status: ✅ PRODUCTION READY. All 9 eBay sales syncing, dates correct, P&L accurate, charts working, full transaction management. Vercel build passing.
 
 CRITICAL WARNINGS — DO NOT:
 
@@ -36,11 +38,17 @@ Current schema:
 transactions: id (UUID), user_id (VARCHAR), transaction_type, card_category, amount, card_name, ebay_order_id, transaction_date
 users: user_id (VARCHAR = 'gabriel_ebay_account'), ebay_access_token, token_expires_at
 
-Status (as of March 25, 2026):
+Status (as of March 26, 2026):
 
 ✅ FIXED: Transaction dates showing correctly (actual eBay order dates)
 ✅ FIXED: All 9 eBay sales syncing correctly (no missing transactions)
 ✅ CONFIRMED: Price input works with manual decimal entry — no UX change needed
+✅ NEW: Transaction numbering (#1, #2, etc.) — sequential display
+✅ NEW: Sorted by transaction_date (purchase/sale date) not insertion date — realistic timeline
+✅ NEW: All Transactions view — removed 10-transaction limit, shows entire history
+✅ NEW: Delete transaction function — click to edit, confirm to delete permanently
+✅ NEW: Color palette (lib/colors.ts) — Cyan, Purple, Orange for charts (Green/Magenta UI unchanged)
+✅ FIXED: Supabase initialization in delete route — Vercel build passing
 
 Next priorities (features, not bugs):
 
@@ -49,7 +57,6 @@ AI card photo valuation — Claude Vision API for condition/value assessment
 Inventory manager — track cards in collection, organize by set/sport
 Wishlist + price alerts — watch cards, alert when prices drop
 Weekly recap screen — profit summary, best performers, trends
-
 
 2. SOUNDSTAGE AI
 
