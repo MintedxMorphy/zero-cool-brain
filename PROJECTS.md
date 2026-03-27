@@ -133,6 +133,75 @@ System Synergy Analysis — Impedance/power/character matching (2-3 days)
 Upgrade Recommendation Engine — Weakest link identification (3-4 days)
 Budget Optimization Tools — Allocation percentages + genre-specific (2-3 days)
 
+March 26 notes... 
+
+Status: ⚠️ CRITICAL - Equipment detection broken across all builds (March 26)
+
+Last commits:
+
+• 01b8ae2 — force: rebuild cache
+• 9da4afc — feat: add in-app debug screen for env var inspection
+• 3629fbb — debug: log env var values at runtime
+
+Current Issue (March 26, 2026):
+
+• Equipment identification stopped working 5-10 days ago
+• App was working perfectly before logo/Play Store troubleshooting session
+• Tested across 6+ builds (current main, f9164a4, c4c7e38, earlier commits)
+• All versions fail identically — same "identification failed" + "network request failed" errors
+• EAS preview environment variables confirmed set with real values on dashboard
+• Issue is NOT in recent commits (icon/splash changes)
+• Issue is NOT API key validity (Claude API confirmed working)
+• Issue is NOT network connectivity (phone connection verified)
+• Hypothesis: Environment variables not loading at runtime despite being set in EAS dashboard, OR a deeper environmental corruption from the 6 failed builds yesterday
+
+Debug Attempts Made:
+
+• Added console.log to env.ts to log actual runtime values
+• Created in-app debug screen (app/debug.tsx) to display env vars at runtime
+• Tested from multiple commits going back to initial
+• Verified EAS build logs show vars are "loaded from preview environment"
+• Tested with both preview profile builds
+
+Next Steps to Diagnose:
+
+1. Check if debug screen actually appears in app (last build didn't show it despite code being in repo)
+2. If debug screen loads: screenshot env var values to see if they're empty/undefined at runtime
+3. If debug screen doesn't load: possible deeper build caching or Expo Router issue
+4. Consider: Full clean rebuild of EAS environment from scratch
+5. Consider: Revert to known last-working APK (March 21) and test if it still works or also fails
+
+Branches Created (don't merge):
+
+• test-revert — checkout to f9164a4
+• test-earlier — checkout to c4c7e38
+• test-initial — checkout to 36ec6ef (failed, no EAS config)
+
+Build URLs (for reference):
+
+• Latest: https://expo.dev/accounts/gmgremil/projects/soundstage-ai/builds/98624fd4-cc72-4999-924a-b644002a895b
+• Previous (debug attempt): https://expo.dev/accounts/gmgremil/projects/soundstage-ai/builds/68d35860-96ab-4dde-9bc0-7eab12700c7a
+• Earlier: https://expo.dev/accounts/gmgremil/projects/soundstage-ai/builds/b941fca0-cd0e-4269-a801-92f14ac45298
+
+Critical Note: The app appears to be in an inconsistent state. Every build we test fails the same way, despite:
+
+• Code being correct and working months ago
+• API keys being valid
+• Network connectivity being fine
+• Environment variables showing as set
+
+This suggests either:
+
+1. A broken dependency or build configuration at the Expo/EAS level
+2. Environment variables genuinely not being injected at runtime (despite dashboard showing they're set)
+3. Supabase/Claude API endpoints being blocked or changed in a way that only affects built APKs (not locally tested)
+
+DO NOT merge test branches. When you return to this, first test if the original working APK (0.1.0 from March 21) still works or also fails now.
+
+───
+
+That's it. Only SoundStage AI today. Good night.
+
 
 3. CLAWWORK
 
