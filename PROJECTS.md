@@ -16,47 +16,80 @@ Critical rule: NEVER drop or recreate database tables without explicit confirmat
 ACTIVE PROJECTS
 1. CARDTRACK
 
-1. CARDTRACK
+## 3. CardTrack (eBay Card Dashboard)
 
-Repo: github.com/MintedxMorphy/ebay-card-dashboard
-Local: ~/Projects/ebay-card-dashboard
-Live URL: https://ebay-card-dashboard.vercel.app
-Stack: Next.js, Supabase, Vercel, eBay Fulfillment API, eBay Browse API
-What it is: Pokémon + sports card trading dashboard for Gabriel (Gregory's son). Tracks eBay sales, P&L, buys/sells.
-Last commit: 57a3bd1 — Fix Supabase initialization in delete route (Mar 26, 2026)
-Current status: ✅ PRODUCTION READY. All 9 eBay sales syncing, dates correct, P&L accurate, charts working, full transaction management. Vercel build passing.
+**Repo:** github.com/MintedxMorphy/ebay-card-dashboard  
+**Local:** /Users/mastercontrol/.openclaw/workspace/ebay-card-dashboard  
+**Live URL:** https://ebay-card-dashboard.vercel.app  
+**Stack:** Next.js 14, TypeScript, Supabase, Vercel, eBay APIs (Fulfillment + Browse), Perplexity API, Anthropic Claude  
+**What it is:** Pokémon + sports card trading dashboard. Tracks eBay sales, buys, P&L analysis, real-time market intelligence via Edge News.
 
-CRITICAL WARNINGS — DO NOT:
+### Last Update: March 28, 2026 — 9:25 AM CDT
 
-Drop or recreate the transactions table
-Change user_id column type (already fixed to VARCHAR — was UUID, broke everything)
-Add ebay_transaction_id back (removed intentionally)
-Touch the eBay portal RuName config (took all day to get right)
+**Status:** 🟢 PRODUCTION READY + NEW FEATURE (Edge News)
 
-Current schema:
+### Recent Work (March 28)
 
-transactions: id (UUID), user_id (VARCHAR), transaction_type, card_category, amount, card_name, ebay_order_id, transaction_date
-users: user_id (VARCHAR = 'gabriel_ebay_account'), ebay_access_token, token_expires_at
+**Home Page Branding Cleanup:**
+- ✅ Removed dummy stats grid (12 Transactions, $370 Revenue, $86.50 Profit)
+- ✅ Removed "x Gabriel" from title → now just "CARDTRACK"
+- ✅ Removed leading `>` symbol from logo
+- ✅ Bumped logo to text-8xl for bigger, bolder presence
+- ✅ Updated OAuth callback page (ebay-success) to match new branding
 
-Status (as of March 26, 2026):
+**Edge News Feature — COMPLETE BUT DEBUGGING:**
+- ✅ Endpoint: `/api/edge-news` with real-time Perplexity API integration
+- ✅ Searches for breaking sports/Pokemon news (last 24 hours only)
+- ✅ Claude classifies as BULLISH/BEARISH/WATCH with impact reasoning
+- ✅ Component: `EdgeNews.tsx` integrated below stats cards on dashboard
+- ✅ Cache: 15-min Supabase cache via `edge_news_cache` table
+- ✅ Manual refresh button + auto-refresh every 15 min
+- ⚠️ **DEBUGGING:** Date filtering refinements in progress (distinguishing event_date vs article_date to eliminate re-reported old news)
 
-✅ FIXED: Transaction dates showing correctly (actual eBay order dates)
-✅ FIXED: All 9 eBay sales syncing correctly (no missing transactions)
-✅ CONFIRMED: Price input works with manual decimal entry — no UX change needed
-✅ NEW: Transaction numbering (#1, #2, etc.) — sequential display
-✅ NEW: Sorted by transaction_date (purchase/sale date) not insertion date — realistic timeline
-✅ NEW: All Transactions view — removed 10-transaction limit, shows entire history
-✅ NEW: Delete transaction function — click to edit, confirm to delete permanently
-✅ NEW: Color palette (lib/colors.ts) — Cyan, Purple, Orange for charts (Green/Magenta UI unchanged)
-✅ FIXED: Supabase initialization in delete route — Vercel build passing
+### Critical Fixes Applied (March 28)
 
-Next priorities (features, not bugs):
+**Problem 1: Stale Headlines**
+- **Cause:** Perplexity env var typo on Vercel (`Perplexity_API` vs `PERPLEXITY_API_KEY`)
+- **Fix:** Corrected env var name, confirmed API key loads in production
+- **Commits:** `449d19a` (Perplexity integration), `61e92d8` (Edge News widget)
 
-Gamification (XP, ranks, badges) — not yet built
-AI card photo valuation — Claude Vision API for condition/value assessment
-Inventory manager — track cards in collection, organize by set/sport
-Wishlist + price alerts — watch cards, alert when prices drop
-Weekly recap screen — profit summary, best performers, trends
+**Problem 2: Claude Hallucinating Source URLs**
+- **Cause:** `queryPerplexity()` discarded citation array; Claude invented fake URLs
+- **Fix:** Return `{content, citations}` tuple, pass real URLs to Claude prompt
+- **Commit:** (pushed with Perplexity fixes)
+
+**Problem 3: Chris Paul Retirement Showing as "Today"**
+- **Cause:** Filtering by article_date (today) not event_date (Feb)
+- **Fix:** Two-date extraction (event_date + article_date), reject if event_date > 24h old
+- **Commits:** `1270bee` (event_date filtering), `4437102` (earlier fix — not pushed initially)
+- **Status:** Latest code pushing real event-based filtering; cache cleared for fresh data
+
+### Database Schema (Locked — Do NOT Change)
+
+```sql
+-- transactions table
+id: UUID PRIMARY KEY
+user_id: VARCHAR(255) NOT NULL [currently: 'gabriel_ebay_account']
+transaction_type: VARCHAR (buy|sell)
+card_category: VARCHAR (sports|pokemon|other)
+amount: DECIMAL(10,2)
+card_name: VARCHAR(255)
+ebay_order_id: VARCHAR(50) [UNIQUE with user_id]
+transaction_date: TIMESTAMP [actual transaction date, not insertion]
+created_at: TIMESTAMP DEFAULT NOW()
+updated_at: TIMESTAMP DEFAULT NOW()
+
+-- users table
+user_id: VARCHAR(255) PRIMARY KEY
+ebay_access_token: TEXT
+token_expires_at: TIMESTAMP
+
+-- edge_news_cache table (NEW — created March 28)
+id: UUID PRIMARY KEY
+news_items: JSONB
+fetched_at: TIMESTAMPTZ
+created_at: TIMESTAMPTZ
+
 
 
 2. SOUNDSTAGE AI
