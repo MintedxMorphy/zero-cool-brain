@@ -16,80 +16,125 @@ Critical rule: NEVER drop or recreate database tables without explicit confirmat
 ACTIVE PROJECTS
 1. CARDTRACK
 
-## 3. CardTrack (eBay Card Dashboard)
+## CardTrack (eBay Card Dashboard)
 
-**Repo:** github.com/MintedxMorphy/ebay-card-dashboard  
-**Local:** /Users/mastercontrol/.openclaw/workspace/ebay-card-dashboard  
-**Live URL:** https://ebay-card-dashboard.vercel.app  
-**Stack:** Next.js 14, TypeScript, Supabase, Vercel, eBay APIs (Fulfillment + Browse), Perplexity API, Anthropic Claude  
-**What it is:** Pokémon + sports card trading dashboard. Tracks eBay sales, buys, P&L analysis, real-time market intelligence via Edge News.
+**Repository:** https://github.com/MintedxMorphy/ebay-card-dashboard  
+**Live:** https://ebay-card-dashboard.vercel.app/dashboard  
+**Stack:** Next.js, Supabase, eBay APIs, Perplexity, Vercel
 
-### Last Update: March 28, 2026 — 9:25 AM CDT
+### Status: Phase 2 Feature Complete ✅
 
-**Status:** 🟢 PRODUCTION READY + NEW FEATURE (Edge News)
+**Latest work:** March 29, 2026 (Morning session)
 
-### Recent Work (March 28)
+### What's Working
 
-**Home Page Branding Cleanup:**
-- ✅ Removed dummy stats grid (12 Transactions, $370 Revenue, $86.50 Profit)
-- ✅ Removed "x Gabriel" from title → now just "CARDTRACK"
-- ✅ Removed leading `>` symbol from logo
-- ✅ Bumped logo to text-8xl for bigger, bolder presence
-- ✅ Updated OAuth callback page (ebay-success) to match new branding
+#### Core Features
+✅ eBay OAuth (Production) — fully synced with 9 orders  
+✅ Card detection — Keywords + Browse API fallback + Item Specifics parsing  
+✅ Sports/Pokemon categorization — 100% accuracy with collector keywords  
+✅ Manual entry — Buy & Sell forms working  
+✅ Transaction editing — Click any row to edit  
+✅ Charts — Profit Over Time + Category Breakdown  
+✅ P&L tracking — Net P&L with color-coded loss/profit  
 
-**Edge News Feature — COMPLETE BUT DEBUGGING:**
-- ✅ Endpoint: `/api/edge-news` with real-time Perplexity API integration
-- ✅ Searches for breaking sports/Pokemon news (last 24 hours only)
-- ✅ Claude classifies as BULLISH/BEARISH/WATCH with impact reasoning
-- ✅ Component: `EdgeNews.tsx` integrated below stats cards on dashboard
-- ✅ Cache: 15-min Supabase cache via `edge_news_cache` table
-- ✅ Manual refresh button + auto-refresh every 15 min
-- ⚠️ **DEBUGGING:** Date filtering refinements in progress (distinguishing event_date vs article_date to eliminate re-reported old news)
+#### Edge News (Phase 2 — Complete)
+✅ Sports/Pokemon toggle buttons  
+✅ Real-time search engine (powered by Perplexity API)
+  - Searches for cards, players, market data
+  - Claude extracts 3-5 key insights with relevance scores (0-100%)
+  - Examples: "Tom Brady" → cards + market impact; "Charizard" → reprints + trends
+✅ 5+ articles minimum per category (sports bottleneck fixed)
+  - Sports: Token budget boosted (2000), strict Claude enforcement
+  - Pokemon: Consistent 5-8 articles
+  - Total: 10-16 articles showing with full logging
+✅ Compact search UI inline with category tabs
 
-### Critical Fixes Applied (March 28)
+#### Dashboard Layout (Phase 2 — Complete)
+✅ New Transaction dropdown (Buy/Sell consolidated)  
+✅ P&L Stats with color-coded loss/profit (no warning icons)  
+✅ Charts section moved above transactions (2-column grid)  
+✅ Transaction pagination — 10 per page + Load More button  
+✅ Edge News at bottom with compact search  
+✅ Section labels & dividers throughout  
+✅ Mobile-first responsive design  
 
-**Problem 1: Stale Headlines**
-- **Cause:** Perplexity env var typo on Vercel (`Perplexity_API` vs `PERPLEXITY_API_KEY`)
-- **Fix:** Corrected env var name, confirmed API key loads in production
-- **Commits:** `449d19a` (Perplexity integration), `61e92d8` (Edge News widget)
+### Recent Commits (March 29)
 
-**Problem 2: Claude Hallucinating Source URLs**
-- **Cause:** `queryPerplexity()` discarded citation array; Claude invented fake URLs
-- **Fix:** Return `{content, citations}` tuple, pass real URLs to Claude prompt
-- **Commit:** (pushed with Perplexity fixes)
+| Commit | Change | Impact |
+|--------|--------|--------|
+| `25e7689` | Built real search engine + fixed Pokemon data | Search now queries Perplexity for market intel |
+| `1647b37` | Fixed sports bottleneck (token boost + strict enforcement) | Sports: 1-2 → 5-8 articles consistently |
+| `c888945` | Dashboard layout reorganization (UI only) | New transaction dropdown, pagination, section labels |
 
-**Problem 3: Chris Paul Retirement Showing as "Today"**
-- **Cause:** Filtering by article_date (today) not event_date (Feb)
-- **Fix:** Two-date extraction (event_date + article_date), reject if event_date > 24h old
-- **Commits:** `1270bee` (event_date filtering), `4437102` (earlier fix — not pushed initially)
-- **Status:** Latest code pushing real event-based filtering; cache cleared for fresh data
+### Critical Implementation Details
 
-### Database Schema (Locked — Do NOT Change)
+**Sports Data Fix (Commit 1647b37):**
+- Increased Perplexity token budget: Sports 1200→2000, Pokemon 1200→1500
+- Claude now extracts exactly 8 items (strict enforcement, not optional)
+- Automatic retry with 2500 tokens if sports < 5 items
+- Full request/response logging for debugging
 
-```sql
--- transactions table
-id: UUID PRIMARY KEY
-user_id: VARCHAR(255) NOT NULL [currently: 'gabriel_ebay_account']
+**Search Engine (Commit 25e7689):**
+- New endpoint: `/api/edge-news/search?q=<query>`
+- Perplexity queries for real-time card/player/market data
+- Claude classifies results and extracts insights with relevance scores
+- Returns ranked results by relevance (0-100%)
+
+**Dashboard Layout (Commit c888945):**
+- New components: `TransactionForm.tsx`, `Transactions.tsx`
+- Consolidated Buy/Sell into dropdown menu
+- 10 transactions per page with Load More button
+- Responsive 2-column chart grid (collapses on mobile)
+- Added section labels: `// P&L OVERVIEW`, `// PERFORMANCE`, `// TRANSACTION HISTORY`, `// MARKET INTELLIGENCE`
+
+### Supabase Schema (Unchanged)
+
+
+transactions:
+id: UUID
+user_id: VARCHAR(255) NOT NULL ['gabriel_ebay_account']
 transaction_type: VARCHAR (buy|sell)
 card_category: VARCHAR (sports|pokemon|other)
 amount: DECIMAL(10,2)
 card_name: VARCHAR(255)
 ebay_order_id: VARCHAR(50) [UNIQUE with user_id]
-transaction_date: TIMESTAMP [actual transaction date, not insertion]
-created_at: TIMESTAMP DEFAULT NOW()
-updated_at: TIMESTAMP DEFAULT NOW()
+transaction_date: TIMESTAMP
+created_at, updated_at: TIMESTAMP
 
--- users table
-user_id: VARCHAR(255) PRIMARY KEY
-ebay_access_token: TEXT
-token_expires_at: TIMESTAMP
+copy
+
+
 
--- edge_news_cache table (NEW — created March 28)
-id: UUID PRIMARY KEY
-news_items: JSONB
-fetched_at: TIMESTAMPTZ
-created_at: TIMESTAMPTZ
+### Critical Warnings ⚠️
 
+❌ Never drop or recreate transactions table — all historical data will be lost  
+❌ Never change user_id column type — must stay VARCHAR(255)  
+❌ Never touch eBay portal RuName config — production OAuth depends on it  
+❌ Never add ebay_transaction_id back — removed for good reason  
+
+### Next Priorities (Phase 3)
+copy
+
+
+1. **AI card photo valuation** — Claude Vision API for condition/grade assessment + market value
+2. **Gamification** — XP system, trader ranks (bronze→platinum), achievements
+copy
+
+
+3. **Inventory manager** — Track cards in collection, organize by set/sport/grade
+4. **Wishlist + price alerts** — Watch cards on eBay, auto-alert when price drops
+5. **Weekly recap screen** — Profit summary, best performers, ROI trends, leaderboard
+
+### Testing Checklist
+
+- [ ] Hard refresh dashboard → Sports shows 5+ articles consistently
+- [ ] Search "Tom Brady" → Returns Tom Brady cards + market data
+- [ ] Search "Charizard" → Returns Charizard reprints + TCG trends
+- [ ] Click "+ New Transaction" → Dropdown shows Buy/Sell options
+- [ ] Edit any transaction → Modal opens pre-filled
+- [ ] Charts responsive on mobile (2 columns → 1 column)
+- [ ] Pagination works — Load More button adds 10 more transactions
+- [ ] Edge News search inline with tabs (compact)
 
 
 2. SOUNDSTAGE AI
