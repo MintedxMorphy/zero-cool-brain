@@ -14,80 +14,69 @@ Critical rule: NEVER drop or recreate database tables without explicit confirmat
 
 
 ACTIVE PROJECTS
-1. CARDTRACK
-
 ## CardTrack (eBay Card Dashboard)
 
 **Repository:** https://github.com/MintedxMorphy/ebay-card-dashboard  
 **Live:** https://ebay-card-dashboard.vercel.app/dashboard  
 **Stack:** Next.js, Supabase, eBay APIs, Perplexity, Vercel
 
-### Status: Phase 2 Feature Complete ✅
+### Status: Phase 2 Feature Complete + UI Refinements (March 29)
 
-**Latest work:** March 29, 2026 (Morning session)
+**Latest work:** March 29, 2026 (Evening session - extensive UI refinements)
 
 ### What's Working
 
 #### Core Features
-✅ eBay OAuth (Production) — fully synced with 9 orders  
-✅ Card detection — Keywords + Browse API fallback + Item Specifics parsing  
-✅ Sports/Pokemon categorization — 100% accuracy with collector keywords  
-✅ Manual entry — Buy & Sell forms working  
-✅ Transaction editing — Click any row to edit  
+✅ eBay OAuth (Production) — fully synced  
+✅ Card detection — Keywords + Browse API fallback  
+✅ Sports/Pokemon categorization — 100% accuracy  
+✅ Manual entry — Buy & Sell forms  
+✅ Transaction editing — Click to edit  
 ✅ Charts — Profit Over Time + Category Breakdown  
-✅ P&L tracking — Net P&L with color-coded loss/profit  
+✅ P&L tracking — Color-coded loss/profit  
 
-#### Edge News (Phase 2 — Complete)
+#### Edge News (Complete)
 ✅ Sports/Pokemon toggle buttons  
-✅ Real-time search engine (powered by Perplexity API)
-  - Searches for cards, players, market data
-  - Claude extracts 3-5 key insights with relevance scores (0-100%)
-  - Examples: "Tom Brady" → cards + market impact; "Charizard" → reprints + trends
-✅ 5+ articles minimum per category (sports bottleneck fixed)
-  - Sports: Token budget boosted (2000), strict Claude enforcement
-  - Pokemon: Consistent 5-8 articles
-  - Total: 10-16 articles showing with full logging
-✅ Compact search UI inline with category tabs
+✅ Real-time search engine (Perplexity API)  
+✅ 5+ articles minimum per category  
+✅ Relevance scoring (0-100%)  
+✅ Search bar inline with category tabs  
 
-#### Dashboard Layout (Phase 2 — Complete)
-✅ New Transaction dropdown (Buy/Sell consolidated)  
-✅ P&L Stats with color-coded loss/profit (no warning icons)  
-✅ Charts section moved above transactions (2-column grid)  
-✅ Transaction pagination — 10 per page + Load More button  
-✅ Edge News at bottom with compact search  
-✅ Section labels & dividers throughout  
-✅ Mobile-first responsive design  
+#### Dashboard Layout (Phase 2 Complete)
+✅ New Transaction dropdown (consolidated Buy/Sell)  
+✅ P&L Stats section  
+✅ Charts section (2-column grid)  
+✅ All Transactions with scrolling  
+✅ Edge News at bottom  
+✅ Section labels & dividers  
+✅ Mobile-responsive  
 
 ### Recent Commits (March 29)
 
-| Commit | Change | Impact |
-|--------|--------|--------|
-| `25e7689` | Built real search engine + fixed Pokemon data | Search now queries Perplexity for market intel |
-| `1647b37` | Fixed sports bottleneck (token boost + strict enforcement) | Sports: 1-2 → 5-8 articles consistently |
-| `c888945` | Dashboard layout reorganization (UI only) | New transaction dropdown, pagination, section labels |
+| Commit | Change |
+|--------|--------|
+| `25e7689` | Built real search engine (Perplexity) |
+| `1647b37` | Fixed sports bottleneck (token boost) |
+| `c888945` | Dashboard layout reorganization |
+| `5046f32` | Removed category summary boxes |
+| `3daf2e1` | Fixed category boxes visibility |
+| `2356329` | Extend Your Card Empire section |
+| `9169f1e` | Header flex layout fix (justify-between) |
+| `621c956` | Header container alignment fix |
+| `cc6709e` | Remove "Cards Only" button from header |
 
-### Critical Implementation Details
+### Known Issues (As of End of Session)
 
-**Sports Data Fix (Commit 1647b37):**
-- Increased Perplexity token budget: Sports 1200→2000, Pokemon 1200→1500
-- Claude now extracts exactly 8 items (strict enforcement, not optional)
-- Automatic retry with 2500 tokens if sports < 5 items
-- Full request/response logging for debugging
+⚠️ **Header alignment:** Spent 2+ hours attempting to fix "Your Card Empire" section layout. Multiple approaches tried:
+- Flex-1 stretching
+- Flex flex-col
+- Centered layout
+- Container alignment matching
+- Button removal
 
-**Search Engine (Commit 25e7689):**
-- New endpoint: `/api/edge-news/search?q=<query>`
-- Perplexity queries for real-time card/player/market data
-- Claude classifies results and extracts insights with relevance scores
-- Returns ranked results by relevance (0-100%)
+Final approach: Removed "Cards Only" button entirely (commit `cc6709e`). Header now simplified to title + subtitle only. Pending verification if alignment issue resolved.
 
-**Dashboard Layout (Commit c888945):**
-- New components: `TransactionForm.tsx`, `Transactions.tsx`
-- Consolidated Buy/Sell into dropdown menu
-- 10 transactions per page with Load More button
-- Responsive 2-column chart grid (collapses on mobile)
-- Added section labels: `// P&L OVERVIEW`, `// PERFORMANCE`, `// TRANSACTION HISTORY`, `// MARKET INTELLIGENCE`
-
-### Supabase Schema (Unchanged)
+### Subabase Schema (Unchanged)
 
 
 transactions:
@@ -107,34 +96,19 @@ copy
 
 ### Critical Warnings ⚠️
 
-❌ Never drop or recreate transactions table — all historical data will be lost  
-❌ Never change user_id column type — must stay VARCHAR(255)  
-❌ Never touch eBay portal RuName config — production OAuth depends on it  
-❌ Never add ebay_transaction_id back — removed for good reason  
+❌ Never drop or recreate transactions table  
+❌ Never change user_id column type (must stay VARCHAR(255))  
+❌ Never touch eBay portal RuName config  
+❌ Never add ebay_transaction_id back  
 
 ### Next Priorities (Phase 3)
-copy
-
-
-1. **AI card photo valuation** — Claude Vision API for condition/grade assessment + market value
-2. **Gamification** — XP system, trader ranks (bronze→platinum), achievements
-copy
-
-
-3. **Inventory manager** — Track cards in collection, organize by set/sport/grade
-4. **Wishlist + price alerts** — Watch cards on eBay, auto-alert when price drops
-5. **Weekly recap screen** — Profit summary, best performers, ROI trends, leaderboard
 
-### Testing Checklist
-
-- [ ] Hard refresh dashboard → Sports shows 5+ articles consistently
-- [ ] Search "Tom Brady" → Returns Tom Brady cards + market data
-- [ ] Search "Charizard" → Returns Charizard reprints + TCG trends
-- [ ] Click "+ New Transaction" → Dropdown shows Buy/Sell options
-- [ ] Edit any transaction → Modal opens pre-filled
-- [ ] Charts responsive on mobile (2 columns → 1 column)
-- [ ] Pagination works — Load More button adds 10 more transactions
-- [ ] Edge News search inline with tabs (compact)
+1. **Verify header layout** (if issue still exists, investigate further)
+2. **AI card photo valuation** — Claude Vision API
+3. **Gamification** — XP system, trader ranks
+4. **Inventory manager** — Track cards in collection
+5. **Wishlist + price alerts** — Watch cards, auto-alert
+6. **Weekly recap screen** — Profit summary, leaderboard
 
 
 2. SOUNDSTAGE AI
