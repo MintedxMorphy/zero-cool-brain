@@ -14,21 +14,24 @@ Critical rule: NEVER drop or recreate database tables without explicit confirmat
 
 
 ACTIVE PROJECTS
+copy
+
+
 ## CardTrack (eBay Card Dashboard)
 
 **Repository:** https://github.com/MintedxMorphy/ebay-card-dashboard  
 **Live:** https://ebay-card-dashboard.vercel.app/dashboard  
 **Stack:** Next.js, Supabase, eBay APIs, Perplexity, Vercel
 
-### Status: Phase 2 Feature Complete + UI Refinements (March 29)
+### Status: Phase 2 Feature Complete ✅ (March 29, 2026)
 
-**Latest work:** March 29, 2026 (Evening session - extensive UI refinements)
+**Latest work:** March 29, 2026 (Morning: Edge News + Search. Evening: Dashboard UI refinements)
 
 ### What's Working
 
 #### Core Features
 ✅ eBay OAuth (Production) — fully synced  
-✅ Card detection — Keywords + Browse API fallback  
+✅ Card detection — Keywords + Browse API fallback + Item Specifics  
 ✅ Sports/Pokemon categorization — 100% accuracy  
 ✅ Manual entry — Buy & Sell forms  
 ✅ Transaction editing — Click to edit  
@@ -37,44 +40,35 @@ ACTIVE PROJECTS
 
 #### Edge News (Complete)
 ✅ Sports/Pokemon toggle buttons  
-✅ Real-time search engine (Perplexity API)  
-✅ 5+ articles minimum per category  
-✅ Relevance scoring (0-100%)  
+✅ Real-time search engine (Perplexity API with Claude)  
+✅ 5+ articles minimum per category (sports bottleneck fixed)  
+✅ Relevance scoring (0-100%) on search results  
 ✅ Search bar inline with category tabs  
 
 #### Dashboard Layout (Phase 2 Complete)
 ✅ New Transaction dropdown (consolidated Buy/Sell)  
-✅ P&L Stats section  
-✅ Charts section (2-column grid)  
-✅ All Transactions with scrolling  
-✅ Edge News at bottom  
-✅ Section labels & dividers  
-✅ Mobile-responsive  
+✅ P&L Stats section (color-coded loss/profit)  
+✅ Charts section (2-column grid, responsive)  
+✅ All Transactions with scrolling (not pagination)  
+✅ Edge News at bottom with compact search  
+✅ Section labels & dividers ("// P&L OVERVIEW", "// PERFORMANCE", etc.)  
+✅ Mobile-responsive design  
+✅ "Your Card Empire 💰" header properly centered and aligned  
 
 ### Recent Commits (March 29)
 
-| Commit | Change |
-|--------|--------|
-| `25e7689` | Built real search engine (Perplexity) |
-| `1647b37` | Fixed sports bottleneck (token boost) |
-| `c888945` | Dashboard layout reorganization |
-| `5046f32` | Removed category summary boxes |
-| `3daf2e1` | Fixed category boxes visibility |
-| `2356329` | Extend Your Card Empire section |
-| `9169f1e` | Header flex layout fix (justify-between) |
-| `621c956` | Header container alignment fix |
-| `cc6709e` | Remove "Cards Only" button from header |
-
-### Known Issues (As of End of Session)
-
-⚠️ **Header alignment:** Spent 2+ hours attempting to fix "Your Card Empire" section layout. Multiple approaches tried:
-- Flex-1 stretching
-- Flex flex-col
-- Centered layout
-- Container alignment matching
-- Button removal
-
-Final approach: Removed "Cards Only" button entirely (commit `cc6709e`). Header now simplified to title + subtitle only. Pending verification if alignment issue resolved.
+| Commit | Change | Status |
+|--------|--------|--------|
+| `25e7689` | Built real search engine (Perplexity) | ✅ Live |
+| `1647b37` | Fixed sports bottleneck (token boost) | ✅ Live |
+| `c888945` | Dashboard layout reorganization | ✅ Live |
+| `5046f32` | Removed category summary boxes | ✅ Live |
+| `3daf2e1` | Fixed category boxes visibility | ✅ Live |
+| `2356329` | Extend Your Card Empire section | ✅ Live |
+| `9169f1e` | Header flex layout fix | ✅ Live |
+| `621c956` | Header container alignment fix | ✅ Live |
+| `cc6709e` | Remove "Cards Only" button, simplify header | ✅ Live |
+| *Final* | Header centered and aligned correctly | ✅ Verified |
 
 ### Subabase Schema (Unchanged)
 
@@ -103,13 +97,17 @@ copy
 
 ### Next Priorities (Phase 3)
 
-1. **Verify header layout** (if issue still exists, investigate further)
-2. **AI card photo valuation** — Claude Vision API
-3. **Gamification** — XP system, trader ranks
-4. **Inventory manager** — Track cards in collection
-5. **Wishlist + price alerts** — Watch cards, auto-alert
-6. **Weekly recap screen** — Profit summary, leaderboard
+1. **AI card photo valuation** — Claude Vision API for condition/grade assessment + market value
+2. **Gamification** — XP system, trader ranks (bronze→gold→platinum), achievements
+3. **Inventory manager** — Track cards in collection, organize by set/sport/grade
+4. **Wishlist + price alerts** — Watch cards on eBay, alert when prices drop
+5. **Weekly recap screen** — Profit summary, best performers, ROI trends, leaderboard
 
+### Session Notes (March 29)
+
+**Morning:** Built Edge News search engine with Perplexity integration. Fixed sports data bottleneck. Dashboard layout reorganization.
+
+**Evening:** 2+ hours on header alignment issue. Root cause: nested container structure different from rest of dashboard. Fixed by removing "Cards Only" button and simplifying header to "Your Card Empire 💰" + subtitle. Now properly centered and aligned with all sections below.
 
 2. SOUNDSTAGE AI
 
