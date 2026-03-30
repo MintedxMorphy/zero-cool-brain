@@ -602,6 +602,76 @@ open /Users/mastercontrol/.openclaw/workspace/SOUNDSTAGE_PROJECT_STATUS.md
 
 They should be readable now.
 
+SOUNDSTAGE AI (March 30th, 2026)
+
+**Repo:** github.com/MintedxMorphy/soundstage-ai (Private)  
+**Local:** ~/soundstage-ai  
+**Stack:** Expo (React Native, TypeScript, Expo Router), Supabase, Claude API (server-side via Edge Functions)
+
+### Status: 🟢 **FINAL DEPLOYMENT STAGE** (March 30, 2026)
+
+**Latest:** Configured EAS production env vars, linked GitHub, queued production Android build
+
+### What's Done ✅
+
+**Architecture (March 27):**
+- ✅ Removed all GPT-4o code (Claude-only)
+- ✅ Built 4 Supabase Edge Functions (analyze-room, analyze-equipment, analyze-full, chat)
+- ✅ Moved Claude API key server-side (secure behind Supabase)
+- ✅ Created cost tracking schema
+- ✅ Refactored client (zero embedded credentials)
+
+**Deployment (March 30):**
+- ✅ Git auth working (GitHub CLI)
+- ✅ Repo cloned on MacBook Pro
+- ✅ EAS project linked to GitHub
+- ✅ Supabase project ID: `souzhphckttlxtfzrslg` confirmed
+- ✅ EAS production env vars configured:
+  - `EXPO_PUBLIC_SUPABASE_URL`
+  - `EXPO_PUBLIC_SUPABASE_ANON_KEY`
+- ✅ Old env vars removed (no more embedded API keys)
+- ✅ Production Android build queued
+
+### What's Pending ⏳
+
+1. **Set Claude API key secret in Supabase** (2 min)
+   - Supabase → Settings → Secrets → Add `CLAUDE_API_KEY`
+
+2. **Wait for free tier reset** (Wed April 1, 6 PM CDT)
+   - Build will auto-start when tier resets
+
+3. **Test APK on Samsung**
+   - Download from EAS when build completes
+   - Verify end-to-end
+
+### Build Status
+- Platform: Android
+- Profile: production
+- Status: ⏳ Queued (waiting for free tier reset Wed Apr 1)
+- Expected: 10-15 minutes when started
+
+### Critical Warnings ⚠️
+1. Do NOT delete EAS Project ID
+2. Do NOT change bundle IDs without cert updates
+3. Do NOT modify versionCode without rebuilding
+4. Claude API key must be Supabase secret (not embedded)
+5. EXPO_PUBLIC_CLAUDE_API_KEY removed (secure design)
+
+### Next Steps
+1. Play Store submission (after build + test)
+2. iOS TestFlight (later)
+3. Speaker Placement Calculator
+4. System Synergy Analysis
+5. Upgrade Recommendation Engine
+
+### March 30 Notes
+- Spent morning/afternoon fixing terminal auth issues
+- Switched to web dashboards (Supabase + EAS) instead
+- Configured everything via UI — much cleaner
+- Build queued, waiting for free tier reset
+- **Key learning:** Skip terminal when dashboards work better
+- **Tool rule:** Claude Code only for this project going forward
+
 3. CLAWWORK
 
 Repo 1: github.com/MintedxMorphy/clawwork-agent-sdk (Public) — Agent SDK, autonomous job posting and bidding on Ethereum
